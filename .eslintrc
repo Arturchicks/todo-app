@@ -23,7 +23,7 @@
   "plugins": ["react", "prettier", "import"],
   "rules": {
     "indent": ["error", 2, { "SwitchCase": 1 }],
-    // "prettier/prettier": "error",
+    "prettier/prettier": "error",
     "linebreak-style": [0, "unix"],
     "no-plusplus": "off",
     "jsx-a11y/label-has-associated-control": "off",

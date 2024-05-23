@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import Task from "../Task/task";
 
 function TaskList({ todos, onDelete, onToggleDone, changeCheck }) {
