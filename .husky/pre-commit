@@ -1,1 +1,1 @@
-npm husky
+npx lint-staged
