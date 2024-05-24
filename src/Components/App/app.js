@@ -10,7 +10,7 @@ export default class App extends Component {
     this.maxId = 100
     this.state = {
       todosData: [],
-      filter: "All",
+      filter: "All"
     }
   }
 
@@ -19,9 +19,13 @@ export default class App extends Component {
       const idx = todosData.findIndex((el) => el.id === id)
       const oldItem = todosData[idx]
       const newItem = { ...oldItem, done: !oldItem.done }
-      const newArray = [...todosData.slice(0, idx), newItem, ...todosData.slice(idx + 1)]
+      const newArray = [
+        ...todosData.slice(0, idx),
+        newItem,
+        ...todosData.slice(idx + 1)
+      ]
       return {
-        todosData: newArray,
+        todosData: newArray
       }
     })
   }
@@ -31,9 +35,13 @@ export default class App extends Component {
       const idx = todosData.findIndex((el) => el.id === id)
       const oldItem = todosData[idx]
       const newItem = { ...oldItem, isChecked: !oldItem.isChecked }
-      const newArray = [...todosData.slice(0, idx), newItem, ...todosData.slice(idx + 1)]
+      const newArray = [
+        ...todosData.slice(0, idx),
+        newItem,
+        ...todosData.slice(idx + 1)
+      ]
       return {
-        todosData: newArray,
+        todosData: newArray
       }
     })
   }
@@ -62,7 +70,7 @@ export default class App extends Component {
     this.setState(({ todosData }) => {
       const newArray = todosData.filter((e) => !e.done)
       return {
-        todosData: newArray,
+        todosData: newArray
       }
     })
   }
@@ -72,7 +80,7 @@ export default class App extends Component {
       const idx = todosData.findIndex((el) => el.id === id)
       const newArray = todosData.toSpliced(idx, 1)
       return {
-        todosData: newArray,
+        todosData: newArray
       }
     })
   }
@@ -83,10 +91,10 @@ export default class App extends Component {
       id: this.maxId++,
       done: false,
       isChecked: false,
-      date: new Date(),
+      date: new Date()
     }
     this.setState(({ todosData }) => ({
-      todosData: [newItem, ...todosData],
+      todosData: [newItem, ...todosData]
     }))
   }
 

@@ -30,7 +30,7 @@ function TaskList({ todos, onDelete, onToggleDone, changeCheck }) {
 TaskList.propTypes = {
   changeCheck: PropTypes.func.isRequired,
   onToggleDone: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
 }
 
 export default TaskList

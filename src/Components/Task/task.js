@@ -9,12 +9,13 @@ export default class Task extends Component {
     // const { date } = this.props;
     this.state = {
       edit: false,
-      value: "",
+      value: ""
     }
   }
 
   render() {
-    const { name, onDelete, changeCheck, isChecked, onToggleDone, done, date } = this.props
+    const { name, onDelete, changeCheck, isChecked, onToggleDone, done, date } =
+      this.props
     const { edit, value } = this.state
     const handleClick = () => {
       changeCheck()
@@ -33,7 +34,7 @@ export default class Task extends Component {
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               this.setState({
-                edit: !edit,
+                edit: !edit
               })
             }
           }}
@@ -70,7 +71,11 @@ export default class Task extends Component {
               className="icon icon-edit"
               onClick={() => this.setState({ edit: !edit, value: val })}
             />
-            <button type="button" className="icon icon-destroy" onClick={onDelete} />
+            <button
+              type="button"
+              className="icon icon-destroy"
+              onClick={onDelete}
+            />
           </div>
         </li>
       )
@@ -85,10 +90,10 @@ Task.propTypes = {
   isChecked: PropTypes.bool,
   onDelete: PropTypes.func.isRequired,
   onToggleDone: PropTypes.func.isRequired,
-  changeCheck: PropTypes.func.isRequired,
+  changeCheck: PropTypes.func.isRequired
 }
 
 Task.defaultProps = {
   done: false,
-  isChecked: false,
+  isChecked: false
 }

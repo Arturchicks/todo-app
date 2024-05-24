@@ -10,7 +10,11 @@ function Footer(props) {
       <div>
         <Filters todos={todos} filter={filter} changeFilter={changeFilter} />
       </div>
-      <button type="button" className="clear-completed" onClick={() => clearCompleted()}>
+      <button
+        type="button"
+        className="clear-completed"
+        onClick={() => clearCompleted()}
+      >
         Clear completed
       </button>
     </footer>

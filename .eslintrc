@@ -5,9 +5,10 @@
   },
   "ignorePatterns": ["node_modules", "dist", "build"],
   "extends": [
-    "eslint:recommended",
     "prettier",
+    "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
     "plugin:prettier/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
@@ -20,11 +21,11 @@
       "sourceType": "module"
     }
   },
-  "plugins": ["react", "prettier", "import"],
+  "plugins": ["prettier", "react", "import"],
   "rules": {
     "indent": ["error", 2, { "SwitchCase": 1 }],
     "prettier/prettier": "error",
-    "linebreak-style": [0, "unix"],
+    "linebreak-style": "off",
     "no-plusplus": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/click-events-have-key-events": "off",
@@ -33,17 +34,24 @@
     "react/jsx-no-bind": "off",
     "operator-linebreak": "off",
     "quotes": ["error", "double"],
-    "semi": "off",
+    "comma-dangle": "off",
     "object-curly-newline": "off",
+    "semi": ["error", "never"],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": 0,
-    "react/self-closing-comp": ["error"],
     "import/no-unresolved": [2, { "caseSensitive": false }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "import/order": [
       2,
       {
-        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
         "newlines-between": "always"
       }
     ]

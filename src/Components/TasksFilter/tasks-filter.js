@@ -1,15 +1,23 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from "react"
+import PropTypes from "prop-types"
 
 function Filters(props) {
-  const { changeFilter, filter } = props;
+  const { changeFilter, filter } = props
   return (
     <ul className="filters">
       <li>
-        <button type="button" className={filter === "All" ? "selected" : ""} onClick={() => changeFilter("All")}>
+        <button
+          type="button"
+          className={filter === "All" ? "selected" : ""}
+          onClick={() => changeFilter("All")}
+        >
           All
         </button>
-        <button type="button" className={filter === "Active" ? "selected" : ""} onClick={() => changeFilter("Active")}>
+        <button
+          type="button"
+          className={filter === "Active" ? "selected" : ""}
+          onClick={() => changeFilter("Active")}
+        >
           Active
         </button>
       </li>
@@ -23,14 +31,14 @@ function Filters(props) {
         </button>
       </li>
     </ul>
-  );
+  )
 }
 Filters.propTypes = {
   filter: PropTypes.string,
-  changeFilter: PropTypes.func.isRequired,
-};
+  changeFilter: PropTypes.func.isRequired
+}
 
 Filters.defaultProps = {
-  filter: "All",
-};
-export default Filters;
+  filter: "All"
+}
+export default Filters
