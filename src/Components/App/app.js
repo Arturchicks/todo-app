@@ -1,88 +1,80 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 
-import Footer from "../Footer/footer";
-import TaskForm from "../NewTaskForm/new-task-form";
-import TaskList from "../TaskList/task-list";
+import Footer from "../Footer/footer"
+import TaskForm from "../NewTaskForm/new-task-form"
+import TaskList from "../TaskList/task-list"
 
 export default class App extends Component {
   constructor() {
-    super();
-    this.maxId = 100;
+    super()
+    this.maxId = 100
     this.state = {
       todosData: [],
       filter: "All",
-    };
+    }
   }
 
   onToggleDone(id) {
     this.setState(({ todosData }) => {
-      const idx = todosData.findIndex((el) => el.id === id);
-      const oldItem = todosData[idx];
-      const newItem = { ...oldItem, done: !oldItem.done };
-      const newArray = [
-        ...todosData.slice(0, idx),
-        newItem,
-        ...todosData.slice(idx + 1),
-      ];
+      const idx = todosData.findIndex((el) => el.id === id)
+      const oldItem = todosData[idx]
+      const newItem = { ...oldItem, done: !oldItem.done }
+      const newArray = [...todosData.slice(0, idx), newItem, ...todosData.slice(idx + 1)]
       return {
         todosData: newArray,
-      };
-    });
+      }
+    })
   }
 
   changeCheck(id) {
     this.setState(({ todosData }) => {
-      const idx = todosData.findIndex((el) => el.id === id);
-      const oldItem = todosData[idx];
-      const newItem = { ...oldItem, isChecked: !oldItem.isChecked };
-      const newArray = [
-        ...todosData.slice(0, idx),
-        newItem,
-        ...todosData.slice(idx + 1),
-      ];
+      const idx = todosData.findIndex((el) => el.id === id)
+      const oldItem = todosData[idx]
+      const newItem = { ...oldItem, isChecked: !oldItem.isChecked }
+      const newArray = [...todosData.slice(0, idx), newItem, ...todosData.slice(idx + 1)]
       return {
         todosData: newArray,
-      };
-    });
+      }
+    })
   }
 
   changeFilter(data) {
-    this.setState({ filter: data });
+    this.setState({ filter: data })
   }
 
   filteredItems() {
-    const { todosData, filter } = this.state;
+    const { todosData, filter } = this.state
     return todosData.filter(({ done }) => {
       switch (filter) {
         case "All":
-          return true;
+          return true
         case "Active":
-          return done === false;
+          return done === false
         case "Completed":
-          return done === true;
+          return done === true
         default:
-          return true;
+          return true
       }
-    });
+    })
   }
 
   clearCompleted() {
     this.setState(({ todosData }) => {
-      const newArray = todosData.filter((e) => !e.done);
+      const newArray = todosData.filter((e) => !e.done)
       return {
         todosData: newArray,
-      };
-    });
+      }
+    })
   }
 
   deleteItem(id) {
     this.setState(({ todosData }) => {
-      const idx = todosData.findIndex((el) => el.id === id);
-      const newArray = todosData.toSpliced(idx, 1);
+      const idx = todosData.findIndex((el) => el.id === id)
+      const newArray = todosData.toSpliced(idx, 1)
       return {
         todosData: newArray,
-      };
-    });
+      }
+    })
   }
 
   addItem(text) {
@@ -92,15 +84,15 @@ export default class App extends Component {
       done: false,
       isChecked: false,
       date: new Date(),
-    };
+    }
     this.setState(({ todosData }) => ({
       todosData: [newItem, ...todosData],
-    }));
+    }))
   }
 
   render() {
-    const { todosData, filter } = this.state;
-    const todoCount = todosData.filter((el) => !el.done).length;
+    const { todosData, filter } = this.state
+    const todoCount = todosData.filter((el) => !el.done).length
     return (
       <section className="todoapp">
         <header className="header">
@@ -123,6 +115,6 @@ export default class App extends Component {
           />
         </section>
       </section>
-    );
+    )
   }
 }

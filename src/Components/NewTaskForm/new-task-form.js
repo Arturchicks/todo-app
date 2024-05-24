@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 function TaskForm({ onAdd }) {
   return (
@@ -9,11 +9,11 @@ function TaskForm({ onAdd }) {
       autoFocus
       onKeyDown={(e) => {
         if (e.key === "Enter" && e.target.value.trim() !== "") {
-          onAdd(e.target.value);
-          e.target.value = "";
+          onAdd(e.target.value)
+          e.target.value = ""
         }
       }}
     />
-  );
+  )
 }
-export default TaskForm;
+export default TaskForm

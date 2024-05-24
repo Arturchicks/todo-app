@@ -1,28 +1,27 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from "react"
+import PropTypes from "prop-types"
 
-import Timer from "../Timer/timer";
+import Timer from "../Timer/timer"
 
 export default class Task extends Component {
   constructor() {
-    super();
+    super()
     // const { date } = this.props;
     this.state = {
       edit: false,
       value: "",
-    };
+    }
   }
 
   render() {
-    const { name, onDelete, changeCheck, isChecked, onToggleDone, done, date } =
-      this.props;
-    const { edit, value } = this.state;
+    const { name, onDelete, changeCheck, isChecked, onToggleDone, done, date } = this.props
+    const { edit, value } = this.state
     const handleClick = () => {
-      changeCheck();
-      onToggleDone();
-    };
+      changeCheck()
+      onToggleDone()
+    }
 
-    let tag;
+    let tag
 
     if (edit) {
       tag = (
@@ -35,17 +34,17 @@ export default class Task extends Component {
             if (e.key === "Enter") {
               this.setState({
                 edit: !edit,
-              });
+              })
             }
           }}
         />
-      );
+      )
     }
-    let val;
+    let val
     if (value === "") {
-      val = name;
+      val = name
     } else {
-      val = value;
+      val = value
     }
     if (!edit) {
       tag = (
@@ -71,16 +70,12 @@ export default class Task extends Component {
               className="icon icon-edit"
               onClick={() => this.setState({ edit: !edit, value: val })}
             />
-            <button
-              type="button"
-              className="icon icon-destroy"
-              onClick={onDelete}
-            />
+            <button type="button" className="icon icon-destroy" onClick={onDelete} />
           </div>
         </li>
-      );
+      )
     }
-    return tag;
+    return tag
   }
 }
 
@@ -91,9 +86,9 @@ Task.propTypes = {
   onDelete: PropTypes.func.isRequired,
   onToggleDone: PropTypes.func.isRequired,
   changeCheck: PropTypes.func.isRequired,
-};
+}
 
 Task.defaultProps = {
   done: false,
   isChecked: false,
-};
+}
