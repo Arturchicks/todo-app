@@ -17,7 +17,6 @@ function Footer(props) {
       >
         Clear completed
       </button>
-    </footer>
   );
 }
 export default Footer;
