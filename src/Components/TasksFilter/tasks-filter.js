@@ -6,18 +6,10 @@ function Filters(props) {
   return (
     <ul className="filters">
       <li>
-        <button
-          type="button"
-          className={filter === "All" ? "selected" : ""}
-          onClick={() => changeFilter("All")}
-        >
+        <button type="button" className={filter === "All" ? "selected" : ""} onClick={() => changeFilter("All")}>
           All
         </button>
-        <button
-          type="button"
-          className={filter === "Active" ? "selected" : ""}
-          onClick={() => changeFilter("Active")}
-        >
+        <button type="button" className={filter === "Active" ? "selected" : ""} onClick={() => changeFilter("Active")}>
           Active
         </button>
       </li>
