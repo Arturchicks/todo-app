@@ -16,7 +16,7 @@ function Footer(props) {
         onClick={() => clearCompleted()}
       >
         Clear completed
-    
+      </button>
   );
 }
 export default Footer;
