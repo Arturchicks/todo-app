@@ -56,10 +56,10 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "npm run prettier --write",
+    "*.js, .jsx": [
+      "npm run format",
       "npm run lint:fix",
-      "git add"
+      "git add ."
     ]
   }
 }
