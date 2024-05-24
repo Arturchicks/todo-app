@@ -36,7 +36,7 @@
     "quotes": ["error", "double"],
     "comma-dangle": "off",
     "object-curly-newline": "off",
-    "semi": ["error", "never"],
+    // "semi": ["error", "never"],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": 0,
     "import/no-unresolved": [2, { "caseSensitive": false }],
