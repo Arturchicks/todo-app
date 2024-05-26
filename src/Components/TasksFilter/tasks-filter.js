@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import "./tasks-filters.css"
 
 function Filters(props) {
   const { changeFilter, filter } = props

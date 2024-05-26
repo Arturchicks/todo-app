@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import formatDistanceToNow from "date-fns/formatDistanceToNow"
+import "./timer.css"
 
 export default class Timer extends Component {
   constructor(props) {
