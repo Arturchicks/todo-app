@@ -14,6 +14,8 @@ function Filters(props) {
         >
           All
         </button>
+      </li>
+      <li>
         <button
           type="button"
           className={filter === "Active" ? "selected" : ""}
