@@ -8,13 +8,28 @@ export default class App extends Component {
   constructor() {
     super()
     this.maxId = 100
+    this.intervalIds = []
+    this.intervalArr = []
     this.state = {
       todosData: [],
-      filter: "All"
+      filter: "All",
+      started: false,
+      min: 0,
+      sec: 0
     }
   }
 
+  handleMin = (min) => {
+    this.setState({ min: min })
+  }
+  handleSec = (sec) => {
+    this.setState({ sec: sec })
+  }
+  handleUpdate = () => {
+    this.uniqueItems(this.intervalIds)
+  }
   onToggleDone(id) {
+    this.stopTimer(id)
     this.setState(({ todosData }) => {
       const idx = todosData.findIndex((el) => el.id === id)
       const oldItem = todosData[idx]
@@ -85,27 +100,72 @@ export default class App extends Component {
     })
   }
 
-  addItem(text) {
-    const newItem = {
-      name: text,
-      id: this.maxId++,
-      done: false,
-      isChecked: false,
-      date: new Date()
+  startTimer = (id) => {
+    const item = this.state.todosData.find((e) => e.id === id)
+    const ids = this.intervalIds.find((e) => e.id === id)
+    let arr = []
+    arr.push(ids)
+    item.paused = false
+
+    if (!item.started && arr.length === 1) {
+      this.intervalId = setInterval(() => {
+        item.time = item.time - 1000
+        console.log(this.intervalIds, item.started)
+      }, 1000)
     }
-    this.setState(({ todosData }) => ({
-      todosData: [newItem, ...todosData]
-    }))
+    item.started = true
+    if (item) {
+      item.interval = this.intervalId
+    }
+    if (!ids) {
+      this.intervalIds.push({ id: id, interval: this.intervalId })
+      this.intervalArr.push(this.intervalId)
+    }
   }
 
+  stopTimer = (id) => {
+    const item = this.state.todosData.find((e) => e.id === id)
+    console.log(item.started)
+    clearInterval(item.interval)
+    console.log(this.intervalIds)
+
+    item.paused = true
+    item.started = false
+  }
   render() {
-    const { todosData, filter } = this.state
+    const { todosData, filter, time } = this.state
     const todoCount = todosData.filter((el) => !el.done).length
+
+    const addItem = (text) => {
+      const { min, sec } = this.state
+      const newItem = {
+        name: text,
+        id: this.maxId++,
+        done: false,
+        isChecked: false,
+        date: new Date(),
+        time: min * 60 * 1000 + sec * 1000,
+        paused: true,
+        interval: 0,
+        started: false
+      }
+      this.setState(
+        ({ todosData }) => ({
+          todosData: [newItem, ...todosData]
+        }),
+        () => console.log(this.state.todosData)
+      )
+    }
+
     return (
       <section className="todoapp">
         <header className="header">
           <h1>todos</h1>
-          <TaskForm onAdd={this.addItem.bind(this)} />
+          <TaskForm
+            onAdd={addItem.bind(this)}
+            handleMin={this.handleMin}
+            handleSec={this.handleSec}
+          />
         </header>
         <section className="main">
           <TaskList
@@ -113,6 +173,10 @@ export default class App extends Component {
             onDelete={this.deleteItem.bind(this)}
             changeCheck={this.changeCheck.bind(this)}
             onToggleDone={this.onToggleDone.bind(this)}
+            time={time}
+            startTimer={this.startTimer}
+            stopTimer={this.stopTimer}
+            handleStarted={this.handleStarted}
           />
           <Footer
             todo={todoCount}

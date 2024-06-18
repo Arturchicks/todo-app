@@ -4,16 +4,39 @@ import PropTypes from "prop-types"
 import Task from "../Task/task"
 import "./task-list.css"
 
-function TaskList({ todos, onDelete, onToggleDone, changeCheck }) {
+function TaskList({
+  todos,
+  onDelete,
+  onToggleDone,
+  changeCheck,
+  min,
+  sec,
+  startTimer,
+  stopTimer,
+  interval,
+  handleStarted,
+  started
+}) {
   const elements = todos.map((item) => {
     const { id } = item
+
     return (
       <Task
         name={item.name}
         key={item.id}
+        id={item.id}
+        min={min}
+        sec={sec}
         done={item.done}
         date={item.date}
+        time={item.time}
+        paused={item.paused}
+        interval={interval}
         isChecked={item.isChecked}
+        startTimer={startTimer}
+        stopTimer={stopTimer}
+        handleStarted={handleStarted}
+        started={item.started}
         onDelete={() => onDelete(id)}
         onToggleDone={() => {
           onToggleDone(id)

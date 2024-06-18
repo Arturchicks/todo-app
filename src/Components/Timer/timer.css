@@ -1,4 +1,4 @@
-.todo-list li label .created {
+.todo-list li .created {
   font-size: 13px;
   color: gray;
 }
