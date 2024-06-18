@@ -14,8 +14,7 @@ function TaskList({
   startTimer,
   stopTimer,
   interval,
-  handleStarted,
-  started
+  handleStarted
 }) {
   const elements = todos.map((item) => {
     const { id } = item

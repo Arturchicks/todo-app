@@ -47,8 +47,6 @@ export default class Task extends Component {
       onToggleDone,
       done,
       date,
-      time,
-      started,
       startTimer,
       stopTimer,
       id
