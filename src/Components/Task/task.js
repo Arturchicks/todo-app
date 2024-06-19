@@ -3,9 +3,7 @@ import { format } from "date-fns"
 import PropTypes from "prop-types"
 
 import Timer from "../Timer/timer"
-
 import "./task.css"
-
 export default class Task extends Component {
   static mounted = 0
   constructor(props) {
@@ -32,7 +30,6 @@ export default class Task extends Component {
   componentDidMount = () => {
     const { paused } = this.props
     this.setState({ time: this.props.time })
-
     if (!paused) this.startTimer()
   }
   componentWillUnmount = () => {
@@ -67,13 +64,11 @@ export default class Task extends Component {
       stopTimer(id)
       this.stopTimer()
     }
-
     const handleToggle = () => {
       changeCheck()
       this.stopTimer()
     }
     let tag
-
     if (edit) {
       tag = (
         <input
@@ -121,7 +116,6 @@ export default class Task extends Component {
                 className="icon icon-play"
                 onClick={handleStart}
               />
-
               <button
                 type="button"
                 className="icon icon-pause"
@@ -131,7 +125,6 @@ export default class Task extends Component {
             <div className="timer-wrapper">
               <Timer date={date} />
             </div>
-
             <button
               type="button"
               className="icon icon-edit"
@@ -154,17 +147,19 @@ export default class Task extends Component {
     return tag
   }
 }
-
 Task.propTypes = {
   name: PropTypes.string.isRequired,
   done: PropTypes.bool,
+  started: PropTypes.bool,
+  toggled: PropTypes.bool,
   isChecked: PropTypes.bool,
   onDelete: PropTypes.func.isRequired,
   onToggleDone: PropTypes.func.isRequired,
   changeCheck: PropTypes.func.isRequired
 }
-
 Task.defaultProps = {
   done: false,
-  isChecked: false
+  isChecked: false,
+  toggled: false,
+  started: false
 }

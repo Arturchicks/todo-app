@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import "./new-task-form.css"
-
 export default class TaskForm extends Component {
   constructor() {
     super()
@@ -18,11 +17,9 @@ export default class TaskForm extends Component {
       this.setState({ sec: 0 })
     }
   }
-
   render() {
     const { onAdd, handleMin, handleSec } = this.props
     const { min, sec } = this.state
-
     return (
       <form className="new-todo-form">
         <input

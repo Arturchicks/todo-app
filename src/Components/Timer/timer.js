@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import formatDistanceToNow from "date-fns/formatDistanceToNow"
 import "./timer.css"
-
 export default class Timer extends Component {
   constructor(props) {
     super(props)
@@ -9,7 +8,6 @@ export default class Timer extends Component {
       todoDate: props.date.getTime()
     }
   }
-
   componentDidMount() {
     this.intervalId = setInterval(() => {
       this.setState((prevState) => ({
@@ -17,11 +15,9 @@ export default class Timer extends Component {
       }))
     }, 1000)
   }
-
   componentWillUnmount() {
     clearInterval(this.intervalId)
   }
-
   render() {
     const { todoDate } = this.state
     return (

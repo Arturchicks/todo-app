@@ -3,7 +3,6 @@ import React, { Component } from "react"
 import Footer from "../Footer/footer"
 import TaskForm from "../NewTaskForm/new-task-form"
 import TaskList from "../TaskList/task-list"
-
 export default class App extends Component {
   constructor() {
     super()
@@ -18,7 +17,6 @@ export default class App extends Component {
       sec: 0
     }
   }
-
   handleMin = (min) => {
     this.setState({ min: min })
   }
@@ -46,7 +44,6 @@ export default class App extends Component {
       }
     })
   }
-
   changeCheck(id) {
     this.setState(({ todosData }) => {
       const idx = todosData.findIndex((el) => el.id === id)
@@ -62,11 +59,9 @@ export default class App extends Component {
       }
     })
   }
-
   changeFilter(data) {
     this.setState({ filter: data })
   }
-
   filteredItems() {
     const { todosData, filter } = this.state
     return todosData.filter(({ done }) => {
@@ -82,7 +77,6 @@ export default class App extends Component {
       }
     })
   }
-
   clearCompleted() {
     this.setState(({ todosData }) => {
       const newArray = todosData.filter((e) => !e.done)
@@ -91,7 +85,6 @@ export default class App extends Component {
       }
     })
   }
-
   deleteItem(id) {
     this.stopTimer(id)
     this.setState(({ todosData }) => {
@@ -102,7 +95,6 @@ export default class App extends Component {
       }
     })
   }
-
   startTimer = (id) => {
     const item = this.state.todosData.find((e) => e.id === id)
     const ids = this.intervalIds.find((e) => e.id === id)
@@ -125,12 +117,9 @@ export default class App extends Component {
     }
     console.log(item.started)
   }
-
   stopTimer = (id) => {
     const item = this.state.todosData.find((e) => e.id === id)
-
     clearInterval(item.interval)
-
     item.paused = true
     item.started = false
     console.log(item.started)
@@ -138,7 +127,6 @@ export default class App extends Component {
   render() {
     const { todosData, filter, time } = this.state
     const todoCount = todosData.filter((el) => !el.done).length
-
     const addItem = (text) => {
       const { min, sec } = this.state
       const newItem = {
@@ -160,7 +148,6 @@ export default class App extends Component {
         () => console.log(this.state.todosData)
       )
     }
-
     return (
       <section className="todoapp">
         <header className="header">
@@ -180,7 +167,6 @@ export default class App extends Component {
             time={time}
             startTimer={this.startTimer}
             stopTimer={this.stopTimer}
-            handleStarted={this.handleStarted}
           />
           <Footer
             todo={todoCount}

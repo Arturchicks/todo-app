@@ -3,7 +3,6 @@ import PropTypes from "prop-types"
 
 import Task from "../Task/task"
 import "./task-list.css"
-
 function TaskList({
   todos,
   onDelete,
@@ -18,7 +17,6 @@ function TaskList({
 }) {
   const elements = todos.map((item) => {
     const { id } = item
-
     return (
       <Task
         name={item.name}
@@ -50,11 +48,9 @@ function TaskList({
   })
   return <ul className="todo-list">{elements}</ul>
 }
-
 TaskList.propTypes = {
   changeCheck: PropTypes.func.isRequired,
   onToggleDone: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired
 }
-
 export default TaskList
