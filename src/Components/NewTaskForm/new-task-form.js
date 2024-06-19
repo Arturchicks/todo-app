@@ -9,14 +9,6 @@ export default class TaskForm extends Component {
       timeGone: false
     }
   }
-  componentDidUpdate = () => {
-    if (isNaN(this.state.min)) {
-      this.setState({ min: 0 })
-    }
-    if (isNaN(this.state.sec)) {
-      this.setState({ sec: 0 })
-    }
-  }
   render() {
     const { onAdd, handleMin, handleSec } = this.props
     const { min, sec } = this.state
@@ -41,11 +33,7 @@ export default class TaskForm extends Component {
           min={0}
           max={60}
           value={min}
-          onChange={(e) =>
-            this.setState({ min: +e.target.value }, () =>
-              handleMin(e.target.value)
-            )
-          }
+          onChange={(e) => this.setState({ min: +e.target.value }, () => handleMin(e.target.value))}
         />
         <input
           className="new-todo-form__timer"
@@ -55,9 +43,7 @@ export default class TaskForm extends Component {
           max={60}
           value={sec}
           onChange={(e) => {
-            this.setState({ sec: +e.target.value }, () =>
-              handleSec(e.target.value)
-            )
+            this.setState({ sec: +e.target.value }, () => handleSec(e.target.value))
           }}
         />
       </form>

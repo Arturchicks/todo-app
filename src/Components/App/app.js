@@ -34,11 +34,7 @@ export default class App extends Component {
       const idx = todosData.findIndex((el) => el.id === id)
       const oldItem = todosData[idx]
       const newItem = { ...oldItem, done: !oldItem.done }
-      const newArray = [
-        ...todosData.slice(0, idx),
-        newItem,
-        ...todosData.slice(idx + 1)
-      ]
+      const newArray = [...todosData.slice(0, idx), newItem, ...todosData.slice(idx + 1)]
       return {
         todosData: newArray
       }
@@ -49,11 +45,7 @@ export default class App extends Component {
       const idx = todosData.findIndex((el) => el.id === id)
       const oldItem = todosData[idx]
       const newItem = { ...oldItem, isChecked: !oldItem.isChecked }
-      const newArray = [
-        ...todosData.slice(0, idx),
-        newItem,
-        ...todosData.slice(idx + 1)
-      ]
+      const newArray = [...todosData.slice(0, idx), newItem, ...todosData.slice(idx + 1)]
       return {
         todosData: newArray
       }
@@ -145,18 +137,14 @@ export default class App extends Component {
         ({ todosData }) => ({
           todosData: [newItem, ...todosData]
         }),
-        () => console.log(this.state.todosData)
+        () => this.setState({ min: 0, sec: 0 })
       )
     }
     return (
       <section className="todoapp">
         <header className="header">
           <h1>todos</h1>
-          <TaskForm
-            onAdd={addItem.bind(this)}
-            handleMin={this.handleMin}
-            handleSec={this.handleSec}
-          />
+          <TaskForm onAdd={addItem.bind(this)} handleMin={this.handleMin} handleSec={this.handleSec} />
         </header>
         <section className="main">
           <TaskList
