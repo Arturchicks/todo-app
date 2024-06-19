@@ -96,7 +96,6 @@ export default class App extends Component {
     if (!item.started && arr.length === 1) {
       this.intervalId = setInterval(() => {
         item.time = item.time - 1000
-        console.log(this.intervalIds, item.started)
       }, 1000)
     }
     item.started = true
@@ -107,14 +106,12 @@ export default class App extends Component {
       this.intervalIds.push({ id: id, interval: this.intervalId })
       this.intervalArr.push(this.intervalId)
     }
-    console.log(item.started)
   }
   stopTimer = (id) => {
     const item = this.state.todosData.find((e) => e.id === id)
     clearInterval(item.interval)
     item.paused = true
     item.started = false
-    console.log(item.started)
   }
   render() {
     const { todosData, filter, time } = this.state
