@@ -33,15 +33,17 @@ export default class TaskForm extends Component {
             if (e.key === "Enter" && e.target.value.trim() !== "") {
               onAdd(e.target.value)
               e.target.value = ""
-              this.setState({ min: "", sec: "" })
+              this.setState({ min: 0, sec: 0 })
             }
           }}
         />
         <input
           className="new-todo-form__timer"
-          placeholder="Min"
+          placeholder="M"
+          type="number"
+          min={0}
+          max={60}
           value={min}
-          maxLength={2}
           onChange={(e) =>
             this.setState({ min: +e.target.value }, () =>
               handleMin(e.target.value)
@@ -50,9 +52,11 @@ export default class TaskForm extends Component {
         />
         <input
           className="new-todo-form__timer"
-          placeholder="Sec"
+          placeholder="S"
+          type="number"
+          min={0}
+          max={60}
           value={sec}
-          maxLength={2}
           onChange={(e) => {
             this.setState({ sec: +e.target.value }, () =>
               handleSec(e.target.value)

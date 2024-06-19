@@ -30,6 +30,8 @@ export default class App extends Component {
   }
   onToggleDone(id) {
     this.stopTimer(id)
+    const item = this.state.todosData.find((e) => e.id === id)
+    item.toggled = !item.toggled
     this.setState(({ todosData }) => {
       const idx = todosData.findIndex((el) => el.id === id)
       const oldItem = todosData[idx]
@@ -91,6 +93,7 @@ export default class App extends Component {
   }
 
   deleteItem(id) {
+    this.stopTimer(id)
     this.setState(({ todosData }) => {
       const idx = todosData.findIndex((el) => el.id === id)
       const newArray = todosData.toSpliced(idx, 1)
@@ -106,7 +109,6 @@ export default class App extends Component {
     let arr = []
     arr.push(ids)
     item.paused = false
-
     if (!item.started && arr.length === 1) {
       this.intervalId = setInterval(() => {
         item.time = item.time - 1000
@@ -121,16 +123,17 @@ export default class App extends Component {
       this.intervalIds.push({ id: id, interval: this.intervalId })
       this.intervalArr.push(this.intervalId)
     }
+    console.log(item.started)
   }
 
   stopTimer = (id) => {
     const item = this.state.todosData.find((e) => e.id === id)
-    console.log(item.started)
+
     clearInterval(item.interval)
-    console.log(this.intervalIds)
 
     item.paused = true
     item.started = false
+    console.log(item.started)
   }
   render() {
     const { todosData, filter, time } = this.state
@@ -147,7 +150,8 @@ export default class App extends Component {
         time: min * 60 * 1000 + sec * 1000,
         paused: true,
         interval: 0,
-        started: false
+        started: false,
+        toggled: false
       }
       this.setState(
         ({ todosData }) => ({

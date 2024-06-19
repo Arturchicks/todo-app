@@ -27,6 +27,7 @@ function TaskList({
         min={min}
         sec={sec}
         done={item.done}
+        toggled={item.toggled}
         date={item.date}
         time={item.time}
         paused={item.paused}

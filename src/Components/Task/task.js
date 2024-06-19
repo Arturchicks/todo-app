@@ -57,7 +57,8 @@ export default class Task extends Component {
       onToggleDone()
     }
     const handleStart = () => {
-      if (!this.state.toggled) {
+      const { toggled } = this.props
+      if (!toggled) {
         startTimer(id)
         this.startTimer()
       }
@@ -70,7 +71,6 @@ export default class Task extends Component {
     const handleToggle = () => {
       changeCheck()
       this.stopTimer()
-      this.setState({ toggled: !this.state.toggled })
     }
     let tag
 
