@@ -1,25 +1,16 @@
 import React from "react"
 import PropTypes from "prop-types"
 import "./tasks-filters.css"
-function Filters(props) {
-  const { changeFilter, filter } = props
+function Filters({ changeFilter, filter }) {
   return (
     <ul className="filters">
       <li>
-        <button
-          type="button"
-          className={filter === "All" ? "selected" : ""}
-          onClick={() => changeFilter("All")}
-        >
+        <button type="button" className={filter === "All" ? "selected" : ""} onClick={() => changeFilter("All")}>
           All
         </button>
       </li>
       <li>
-        <button
-          type="button"
-          className={filter === "Active" ? "selected" : ""}
-          onClick={() => changeFilter("Active")}
-        >
+        <button type="button" className={filter === "Active" ? "selected" : ""} onClick={() => changeFilter("Active")}>
           Active
         </button>
       </li>

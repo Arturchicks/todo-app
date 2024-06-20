@@ -1,157 +1,134 @@
-import React, { Component } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import { format } from "date-fns"
 import PropTypes from "prop-types"
 
 import Timer from "../Timer/timer"
 import "./task.css"
-export default class Task extends Component {
-  static mounted = 0
-  constructor(props) {
-    super(props)
-    this.state = {
-      edit: false,
-      value: "",
-      time: 0,
-      started: false,
-      toggled: false
-    }
-  }
-  startTimer = () => {
-    if (!this.state.started)
-      this.intervalId = setInterval(() => {
-        this.setState((prevState) => ({ time: prevState.time - 1000 }))
+function Task({
+  paused,
+  time,
+  name,
+  onDelete,
+  changeCheck,
+  isChecked,
+  onToggleDone,
+  done,
+  date,
+  startTimer,
+  stopTimer,
+  id
+}) {
+  const [edit, setEdit] = useState(false)
+  const [value, setValue] = useState("")
+  const [currentTime, setCurrentTime] = useState(0)
+  const [started, setStarted] = useState(false)
+  const intervalId = useRef(null)
+  useEffect(() => {
+    setCurrentTime(time)
+    if (!paused) timerUp()
+    return () => timerDown()
+  }, [])
+  const timerUp = () => {
+    if (!done && !started) {
+      intervalId.current = setInterval(() => {
+        setCurrentTime((prevState) => prevState - 1000)
       }, 1000)
-    this.setState({ started: true })
+    }
+    setStarted(true)
   }
-  stopTimer = () => {
-    this.setState({ started: false })
-    clearInterval(this.intervalId)
+  const timerDown = () => {
+    setStarted(false)
+    console.log(intervalId)
+    clearInterval(intervalId.current)
   }
-  componentDidMount = () => {
-    const { paused } = this.props
-    this.setState({ time: this.props.time })
-    if (!paused) this.startTimer()
+
+  const handleClick = () => {
+    changeCheck()
+    onToggleDone()
   }
-  componentWillUnmount = () => {
-    this.stopTimer()
+  const handleStart = () => {
+    if (!done) {
+      startTimer(id)
+      timerUp()
+      console.log("works")
+    }
   }
-  render() {
-    const {
-      name,
-      onDelete,
-      changeCheck,
-      isChecked,
-      onToggleDone,
-      done,
-      date,
-      startTimer,
-      stopTimer,
-      id
-    } = this.props
-    const { edit, value } = this.state
-    const handleClick = () => {
-      changeCheck()
-      onToggleDone()
-    }
-    const handleStart = () => {
-      const { toggled } = this.props
-      if (!toggled) {
-        startTimer(id)
-        this.startTimer()
-      }
-    }
-    const handleStop = () => {
-      stopTimer(id)
-      this.stopTimer()
-    }
-    const handleToggle = () => {
-      changeCheck()
-      this.stopTimer()
-    }
-    let tag
-    if (edit) {
-      tag = (
-        <input
-          type="text"
-          value={value}
-          className="edit"
-          onChange={(e) => this.setState({ value: e.target.value })}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              this.setState({
-                edit: !edit
-              })
-            }
-          }}
-        />
-      )
-    }
-    let val
-    if (value === "") {
-      val = name
-    } else {
-      val = value
-    }
-    if (!edit) {
-      tag = (
-        <li className={`${done ? "task completed" : "task"}`}>
-          <div className="view">
-            <div className="wrapper">
-              <label className="label">
-                <input
-                  className="toggle"
-                  type="checkbox"
-                  checked={isChecked}
-                  onChange={onToggleDone}
-                  onClick={handleToggle}
-                />
-              </label>
-              <span className="title" onClick={handleClick}>
-                {val}
-              </span>
-            </div>
-            <span className="description">
-              <button
-                type="button"
-                className="icon icon-play"
-                onClick={handleStart}
+  const handleStop = () => {
+    stopTimer(id)
+    timerDown()
+  }
+  const handleToggle = () => {
+    changeCheck()
+    timerDown()
+  }
+  const handleEdit = () => {
+    setEdit((prevState) => !prevState)
+    setValue(val)
+  }
+  let tag
+  if (edit) {
+    tag = (
+      <input
+        type="text"
+        value={value}
+        className="edit"
+        onChange={(e) => setValue(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            setEdit((prevState) => !prevState)
+          }
+        }}
+      />
+    )
+  }
+  let val
+  if (value === "") {
+    val = name
+  } else {
+    val = value
+  }
+  if (!edit) {
+    tag = (
+      <li className={`${done ? "task completed" : "task"}`}>
+        <div className="view">
+          <div className="wrapper">
+            <label className="label">
+              <input
+                className="toggle"
+                type="checkbox"
+                checked={isChecked}
+                onChange={onToggleDone}
+                onClick={handleToggle}
               />
-              <button
-                type="button"
-                className="icon icon-pause"
-                onClick={handleStop}
-              />
+            </label>
+            <span className="title" onClick={handleClick}>
+              {val}
             </span>
-            <div className="timer-wrapper">
-              <Timer date={date} />
-            </div>
-            <button
-              type="button"
-              className="icon icon-edit"
-              onClick={() => this.setState({ edit: !edit, value: val })}
-            />
-            <button
-              type="button"
-              className="icon icon-destroy"
-              onClick={onDelete}
-            />
-            <div className="task-timer-wrapper">
-              {this.state.time === 0 && this.state.started
-                ? handleStop()
-                : format(new Date(this.state.time), "mm:ss")}
-            </div>
           </div>
-        </li>
-      )
-    }
-    return tag
+          <span className="description">
+            <button type="button" className="icon icon-play" onClick={handleStart} />
+            <button type="button" className="icon icon-pause" onClick={handleStop} />
+          </span>
+          <div className="timer-wrapper">
+            <Timer date={date} />
+          </div>
+          <button type="button" className="icon icon-edit" onClick={() => handleEdit()} />
+          <button type="button" className="icon icon-destroy" onClick={onDelete} />
+          <div className="task-timer-wrapper">
+            {currentTime === 0 && started ? handleStop() : format(new Date(currentTime), "mm:ss")}
+          </div>
+        </div>
+      </li>
+    )
   }
+  return tag
 }
+export default Task
+
 Task.propTypes = {
   name: PropTypes.string.isRequired,
   done: PropTypes.bool,
   started: PropTypes.bool,
-  toggled: PropTypes.bool,
   isChecked: PropTypes.bool,
   onDelete: PropTypes.func.isRequired,
   onToggleDone: PropTypes.func.isRequired,
@@ -160,6 +137,5 @@ Task.propTypes = {
 Task.defaultProps = {
   done: false,
   isChecked: false,
-  toggled: false,
   started: false
 }

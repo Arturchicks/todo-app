@@ -1,32 +1,27 @@
-import React, { Component } from "react"
+import React, { useEffect, useState } from "react"
 import formatDistanceToNow from "date-fns/formatDistanceToNow"
 import "./timer.css"
-export default class Timer extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      todoDate: props.date.getTime()
-    }
-  }
-  componentDidMount() {
-    this.intervalId = setInterval(() => {
-      this.setState((prevState) => ({
-        todoDate: prevState.todoDate + 100
-      }))
+function Timer({ date }) {
+  const [todoDate, setTodoDate] = useState(date.getTime())
+  let intervalId
+  useEffect(() => {
+    intervalId = setInterval(() => {
+      setTodoDate((prevState) => (prevState += 100))
     }, 1000)
-  }
-  componentWillUnmount() {
-    clearInterval(this.intervalId)
-  }
-  render() {
-    const { todoDate } = this.state
-    return (
-      <span className="created">
-        {`created ${formatDistanceToNow(new Date(todoDate), {
-          includeSeconds: true,
-          addSuffix: true
-        })}`}
-      </span>
-    )
-  }
+  }, [])
+  useEffect(() => {
+    return () => {
+      clearInterval(intervalId)
+    }
+  }, [])
+
+  return (
+    <span className="created">
+      {`created ${formatDistanceToNow(new Date(todoDate), {
+        includeSeconds: true,
+        addSuffix: true
+      })}`}
+    </span>
+  )
 }
+export default Timer
