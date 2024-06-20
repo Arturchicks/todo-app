@@ -1,1 +1,1 @@
-(https://arturchicks.github.io/todo-app/
+https://arturchicks.github.io/todo-app/
