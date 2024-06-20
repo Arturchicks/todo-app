@@ -5,7 +5,6 @@ import PropTypes from "prop-types"
 import Timer from "../Timer/timer"
 import "./task.css"
 export default class Task extends Component {
-  static mounted = 0
   constructor(props) {
     super(props)
     this.state = {
@@ -36,18 +35,7 @@ export default class Task extends Component {
     this.stopTimer()
   }
   render() {
-    const {
-      name,
-      onDelete,
-      changeCheck,
-      isChecked,
-      onToggleDone,
-      done,
-      date,
-      startTimer,
-      stopTimer,
-      id
-    } = this.props
+    const { name, onDelete, changeCheck, isChecked, onToggleDone, done, date, startTimer, stopTimer, id } = this.props
     const { edit, value } = this.state
     const handleClick = () => {
       changeCheck()
@@ -111,16 +99,8 @@ export default class Task extends Component {
               </span>
             </div>
             <span className="description">
-              <button
-                type="button"
-                className="icon icon-play"
-                onClick={handleStart}
-              />
-              <button
-                type="button"
-                className="icon icon-pause"
-                onClick={handleStop}
-              />
+              <button type="button" className="icon icon-play" onClick={handleStart} />
+              <button type="button" className="icon icon-pause" onClick={handleStop} />
             </span>
             <div className="timer-wrapper">
               <Timer date={date} />
@@ -130,15 +110,9 @@ export default class Task extends Component {
               className="icon icon-edit"
               onClick={() => this.setState({ edit: !edit, value: val })}
             />
-            <button
-              type="button"
-              className="icon icon-destroy"
-              onClick={onDelete}
-            />
+            <button type="button" className="icon icon-destroy" onClick={onDelete} />
             <div className="task-timer-wrapper">
-              {this.state.time === 0 && this.state.started
-                ? handleStop()
-                : format(new Date(this.state.time), "mm:ss")}
+              {this.state.time === 0 && this.state.started ? handleStop() : format(new Date(this.state.time), "mm:ss")}
             </div>
           </div>
         </li>

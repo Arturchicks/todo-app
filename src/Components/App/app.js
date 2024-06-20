@@ -28,8 +28,6 @@ export default class App extends Component {
   }
   onToggleDone(id) {
     this.stopTimer(id)
-    const item = this.state.todosData.find((e) => e.id === id)
-    item.toggled = !item.toggled
     this.setState(({ todosData }) => {
       const idx = todosData.findIndex((el) => el.id === id)
       const oldItem = todosData[idx]
@@ -127,8 +125,7 @@ export default class App extends Component {
         time: min * 60 * 1000 + sec * 1000,
         paused: true,
         interval: 0,
-        started: false,
-        toggled: false
+        started: false
       }
       this.setState(
         ({ todosData }) => ({
